@@ -31,22 +31,22 @@ INSERT INTO books (book_id, title, author, price, stock, published_year) VALUES
 (2, 'Clean Code', 'Robert C. Martin', 35.00, 5, '2008-02-02'),
 (3, 'You Don''t Know JS', 'Kyle Simpson', 30.00, 8, '2014-03-03'),
 (4, 'Refactoring', 'Martin Fowler', 50.00, 3, '1999-02-12'),
-(5, 'Database Design Principles', 'Jane Smith', 20.00, 0, '2018-07-11'),
+(5, 'Database Design Principles', 'Jane Smith', 20.00, 0, '2018-07-11'), -- stock : 0, id : 5
 (6, 'The Fault in Our Stars', 'John Green', 60.00, 10, '2012-04-16'),
 (7, 'Pride and Prejudice', 'Jane Austen', 35.00, 15, '1813-12-27'),
 (8, 'The Kite Runner', 'Khalid Hossaini', 52.00, 48, '2003-6-28'),
 (9, 'The Fellowship of the ring', 'J.R.R Talkien', 100.00, 39, '1954-08-23'),
 (10, 'The Alchemist', 'Paulo Coelho', 700.00, 100, '1988-12-26'),
 (11, 'The Naked Face', 'Sydney Sheldon', 900.00, 180, '1970-03-26'),
-(12, 'The Other Side of Midnight', 'Sydney Sheldon', 350.00, 0, '1973-08-22'),
-(13, 'A Stranger in the Mirror', 'Kyle Simpson', 580.00, 0, '1976-01-19'),
-(14, 'Bloodline', 'Sydney Sheldon', 550.00, 0, '1977-05-20'),
-(15, 'Rage of Angels', 'Sydney Sheldon', 800.00, 0, '1980-09-12'),
-(16, 'Master of the Game', 'Sydney Sheldon', 460.00, 0, '1982-05-11'),
-(17, 'If Tomorrow Comes', 'Sydney Sheldon', 650.00, 0, '1985-12-23'),
+(12, 'The Other Side of Midnight', 'Sydney Sheldon', 350.00, 0, '1973-08-22'), -- stock : 0, id : 12
+(13, 'A Stranger in the Mirror', 'Kyle Simpson', 580.00, 0, '1976-01-19'), -- stock : 0, id : 13
+(14, 'Bloodline', 'Sydney Sheldon', 550.00, 0, '1977-05-20'), -- stock : 0, id : 14
+(15, 'Rage of Angels', 'Sydney Sheldon', 800.00, 0, '1980-09-12'), -- stock : 0, id : 15
+(16, 'Master of the Game', 'Sydney Sheldon', 460.00, 0, '1982-05-11'), -- stock : 0, id : 16
+(17, 'If Tomorrow Comes', 'Sydney Sheldon', 650.00, 0, '1985-12-23'), -- stock : 0, id : 17
 (18, 'Windmills of the Gods', 'Sydney Sheldon', 660.00, 80, '1987-09-12'),
 (19, 'The Sands of Time', 'Sydney Sheldon', 500.00, 100, '1988-09-12'),
-(20, 'Memories of Midnight', 'Sydney Sheldon', 880.00, 0, '1990-01-01'),
+(20, 'Memories of Midnight', 'Sydney Sheldon', 880.00, 0, '1990-01-01'), -- stock : 0, id : 20
 (21, 'The Doomsday Conspiracy', 'Sydney Sheldon', 650.00, 90, '1991-04-16'),
 (22, 'The Stars Shine Down', 'Sydney Sheldon', 550.00, 5, '1992-06-26'),
 (23, 'Nothing Lasts Forever', 'Sydney Sheldon', 650.00, 5, '1994-07-07'),
@@ -130,5 +130,53 @@ INSERT INTO customers (customer_id, customer_name, email, joined_date) VALUES
 ( 34, 'Shariyar Munawar', 'shariyar@email.com', '2017-09-19' ),
 ( 35, 'Mahira Maisath', 'mahira@email.com', '2019-09-19' ),
 ( 36, 'Zulfiquar Ali', 'ali@email.com', '2024-01-10' );
+
+
+-- Inserting data into order table 
+INSERT INTO orders (order_id, customer_id, book_id, quantity, order_date) VALUES
+(1, 1, 2, 1, '2019-03-10'),
+(2, 1, 3, 2, '2020-08-30'),
+(3, 1, 24, 1, '2024-11-30'),
+(4, 1, 28, 2, '2025-03-01'),
+(5, 1, 32, 1, '2025-01-10'),
+(6, 1, 49, 1, '2024-06-25'),
+(7, 3, 10, 2, '2024-03-05'),
+(8, 3, 11, 1, '2022-03-05'),
+(9, 4, 40, 1, '2023-03-05'),
+(11,5, 22, 1, '2025-03-15'),
+(12,6, 24, 1, '2024-07-22'),
+(13,7, 25, 1, '2018-08-25'),
+(14,8, 34, 1, '2023-06-30'),
+(15,9, 37, 1, '2025-07-14'),
+(16,10, 44, 1, '2025-11-01'),
+(17,10, 56, 1, '2025-12-31'),
+(18,10, 24, 1, '2024-12-31'),
+(19,12, 33, 2, '2025-08-27'),
+(20,12, 31, 3, '2022-04-19'),
+(21,13, 39, 3, '2025-03-05'),
+(22,14, 45, 2, '2025-03-05'),
+(24,15, 46, 2, '2025-03-05'),
+(25,17, 55, 2, '2025-03-05'),
+(26,18, 54, 5, '2025-03-05'),
+(27,19, 64, 4, '2025-06-11'),
+(28,20, 62, 1, '2021-06-12'),
+(29,21, 21, 1, '2021-06-11'),
+(30,22, 18, 1, '2024-04-10'),
+(31,23, 39, 1, '2023-04-10'),
+(32,25, 45, 1, '2022-04-02'),
+(33,25, 22, 1, '2024-08-02'),
+(34,26, 27, 1, '2024-08-03'),
+(35,27, 22, 1, '2024-08-07'),
+(36,29, 11, 2, '2021-08-08'),
+(37,30, 33, 2, '2020-03-09'),
+(38,31, 34, 2, '2020-03-02'),
+(39,32, 39, 3, '2020-03-05'),
+(40,33, 35, 4, '2020-10-05'),
+(41,34, 23, 3, '2020-10-05'),
+(42,35, 28, 4, '2024-10-05'),
+(43,36, 29, 1, '2023-01-05');
+
+
+
 
 
