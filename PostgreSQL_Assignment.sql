@@ -6,12 +6,12 @@ CREATE TABLE books (
     author VARCHAR(50),
     price INT CHECK(price > 0),
     stock INT,
-    published_year DATE
+    published_year DATE 
 );
 
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
-    customer_name VARCHAR(50),
+    name VARCHAR(50),
     email VARCHAR(50),
     joined_date DATE DEFAULT CURRENT_DATE,
     UNIQUE(email)
@@ -24,6 +24,8 @@ CREATE TABLE orders (
     quantity INT CHECK(quantity>0),
     order_date DATE DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE customers CASCADE;
 
 -- Inserting data into books table
 INSERT INTO books (book_id, title, author, price, stock, published_year) VALUES
@@ -93,7 +95,7 @@ INSERT INTO books (book_id, title, author, price, stock, published_year) VALUES
 (64, 'Learning Firebase', 'Kato Richardson', 29.00, 6, '2016-04-01');
 
 -- Inserting data into customers table
-INSERT INTO customers (customer_id, customer_name, email, joined_date) VALUES
+INSERT INTO customers (customer_id, name, email, joined_date) VALUES
 ( 1, 'Alice Cullens', 'alice@email.com', '2023-01-10' ),
 ( 2, 'Emma Watson', 'emma@email.com', '2020-02-11' ),
 ( 3, 'Diana Penty', 'diana@email.com', '2013-02-20' ),
@@ -175,6 +177,54 @@ INSERT INTO orders (order_id, customer_id, book_id, quantity, order_date) VALUES
 (41,34, 23, 3, '2020-10-05'),
 (42,35, 28, 4, '2024-10-05'),
 (43,36, 29, 1, '2023-01-05');
+
+-- books table
+SELECT book_id, title, author, price, stock, 
+    EXTRACT(YEAR FROM published_year) AS published_year
+    FROM books;
+-- customers table 
+SELECT * FROM customers;
+
+-- orders table
+SELECT * FROM orders;
+
+
+-- PostgreSQL queries on sample data 
+-----------------------------------------
+-- 1. Find books that are out of stock.
+SELECT title from books
+    WHERE stock = 0;
+
+-- 2. Retrieve the most expensive book in the store.
+SELECT book_id, title, author, price, stock, 
+    EXTRACT(YEAR FROM published_year) AS published_year
+    FROM books
+    WHERE price = (SELECT MAX(price) FROM books);
+
+
+-- 3. Find the total number of orders placed by each customer.
+SELECT name, COUNT(orders.order_id) AS total_orders
+    FROM orders
+    LEFT JOIN customers ON orders.customer_id = customers.customer_id
+    GROUP BY name;
+
+
+-- 4. Calculate the total revenue generated from book sales.
+
+-- 5. List all customers who have placed more than one order.
+-- 6. Find the average price of books in the store.
+-- 7.  Increase the price of all books published before 2000 by 10%.
+-- 8. Delete customers who haven't placed any orders.
+
+
+
+-- UPDATE books
+-- SET price = 2050.00
+-- WHERE book_id = 1;
+
+
+
+
 
 
 
