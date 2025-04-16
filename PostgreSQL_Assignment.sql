@@ -134,7 +134,7 @@ INSERT INTO customers (customer_id, name, email, joined_date) VALUES
 ( 36, 'Zulfiquar Ali', 'ali@email.com', '2024-01-10' );
 
 
--- Inserting data into order table 
+-- Inserting data into orders table 
 INSERT INTO orders (order_id, customer_id, book_id, quantity, order_date) VALUES
 (1, 1, 2, 1, '2019-03-10'),
 (2, 1, 3, 2, '2020-08-30'),
@@ -182,6 +182,7 @@ INSERT INTO orders (order_id, customer_id, book_id, quantity, order_date) VALUES
 SELECT book_id, title, author, price, stock, 
     EXTRACT(YEAR FROM published_year) AS published_year
     FROM books;
+
 -- customers table 
 SELECT * FROM customers;
 
@@ -203,24 +204,42 @@ SELECT book_id, title, author, price, stock,
 
 
 -- 3. Find the total number of orders placed by each customer.
-SELECT name, COUNT(orders.order_id) AS total_orders
+SELECT name, COUNT(order_id) AS total_orders
     FROM orders
     LEFT JOIN customers ON orders.customer_id = customers.customer_id
     GROUP BY name;
 
 
 -- 4. Calculate the total revenue generated from book sales.
+SELECT SUM(quantity * books.price) As totalRevenue
+    FROM orders
+    JOIN books ON orders.book_id = books.book_id ;
 
 -- 5. List all customers who have placed more than one order.
+SELECT customers.name, COUNT(customers.customer_id) AS orders_count
+    FROM orders
+    JOIN customers ON orders.customer_id = customers.customer_id
+    GROUP BY name
+    HAVING COUNT(orders.customer_id) > 1;
+   
+
 -- 6. Find the average price of books in the store.
+SELECT ROUND(AVG(price), 2) AS avg_book_price FROM books;
+
+
 -- 7.  Increase the price of all books published before 2000 by 10%.
+UPDATE books
+    SET price = price * 1.10
+    WHERE EXTRACT(YEAR FROM published_year) < 2000;
+
 -- 8. Delete customers who haven't placed any orders.
+DELETE FROM customers
+WHERE customer_id NOT IN (
+    SELECT DISTINCT customer_id FROM orders
+);
 
 
 
--- UPDATE books
--- SET price = 2050.00
--- WHERE book_id = 1;
 
 
 
